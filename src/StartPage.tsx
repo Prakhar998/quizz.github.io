@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface StartPageProps {
-  onStartQuiz: (email: string) => void; // Ensure the correct type for onStartQuiz
+  onStartQuiz: (email: string) => void;
 }
 
 const StartPage: React.FC<StartPageProps> = ({ onStartQuiz }) => {
   const [email, setEmail] = useState('');
-  const navigate = useNavigate();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -16,7 +15,6 @@ const StartPage: React.FC<StartPageProps> = ({ onStartQuiz }) => {
   const handleStartQuiz = () => {
     if (email.trim() !== '') {
       onStartQuiz(email);
-      navigate('/quiz');
     }
   };
 
@@ -30,7 +28,10 @@ const StartPage: React.FC<StartPageProps> = ({ onStartQuiz }) => {
         value={email}
         onChange={handleEmailChange}
       />
-      <Link to="/quiz" className="btn btn-primary">Start quiz</Link>
+      <button onClick={handleStartQuiz} className="btn btn-primary">
+        Start quiz
+      </button>
+      <Link to="/quiz">Skip to quiz</Link>
     </div>
   );
 };
